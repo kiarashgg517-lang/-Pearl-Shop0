@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pearl Shop</title>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:'Vazirmatn',sans-serif;
+    background:
+        radial-gradient(circle at 20% 10%,rgba(255,255,255,.9),transparent 25%),
+        radial-gradient(circle at 90% 20%,rgba(232,211,178,.45),transparent 30%),
+        linear-gradient(145deg,#f7f3ed,#eee7dc);
+    color:#292621;
+    min-height:100vh;
+}
+
+button{
+    font-family:inherit;
+    border:0;
+    cursor:pointer;
+}
+
+.container{
+    width:min(1100px,94%);
+    margin:auto;
+}
+
+/* HEADER */
+
+header{
+    padding:22px 0 10px;
+}
+
+.topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logoPearl{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:
+        radial-gradient(circle at 30% 25%,#fff,#f7f0e7 40%,#d8c5ab);
+    box-shadow:
+        inset -5px -7px 12px rgba(130,105,80,.18),
+        0 7px 22px rgba(85,66,45,.16);
+}
+
+.logoText{
+    font-size:23px;
+    font-weight:800;
+    letter-spacing:.5px;
+}
+
+.logoSub{
+    font-size:11px;
+    color:#8a7a68;
+    margin-top:1px;
+}
+
+/* HERO */
+
+.hero{
+    margin-top:22px;
+    padding:30px 25px;
+    border-radius:30px;
+    position:relative;
+    overflow:hidden;
+    background:
+        linear-gradient(135deg,
+        rgba(255,255,255,.94),
+        rgba(239,230,216,.9));
+    border:1px solid rgba(170,145,110,.2);
+    box-shadow:0 20px 50px rgba(65,47,27,.10);
+}
+
+.hero:before{
+    content:"";
+    position:absolute;
+    width:190px;
+    height:190px;
+    border-radius:50%;
+    left:-60px;
+    top:-70px;
+    background:rgba(255,255,255,.7);
+    filter:blur(4px);
+}
+
+.heroContent{
+    position:relative;
+    z-index:2;
+}
+
+.badge{
+    display:inline-flex;
+    padding:7px 13px;
+    border-radius:50px;
+    background:#fff;
+    color:#9a7950;
+    border:1px solid #e4d4bd;
+    font-size:12px;
+    margin-bottom:13px;
+}
+
+.hero h1{
+    font-size:clamp(27px,5vw,48px);
+    line-height:1.25;
+    margin-bottom:9px;
+}
+
+.hero h1 span{
+    color:#a47d4f;
+}
+
+.hero p{
+    color:#756b60;
+    max-width:650px;
+    line-height:2;
+    font-size:14px;
+}
+
+/* USER */
+
+.userCard{
+    margin-top:17px;
+    padding:15px 18px;
+    background:rgba(255,255,255,.7);
+    border:1px solid #e4d9c9;
+    border-radius:20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.userInfo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:linear-gradient(145deg,#e7d8c1,#fff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    color:#80613e;
+}
+
+.userName{
+    font-size:14px;
+    font-weight:700;
+}
+
+.userId{
+    font-size:11px;
+    color:#8d8174;
+    margin-top:3px;
+}
+
+/* SECTION */
+
+.section{
+    margin-top:32px;
+}
+
+.sectionTitle{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    margin-bottom:15px;
+}
+
+.sectionTitle h2{
+    font-size:22px;
+}
+
+.sectionTitle span{
+    font-size:11px;
+    color:#918576;
+}
+
+/* PRODUCTS */
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.product{
+    background:rgba(255,255,255,.78);
+    border:1px solid rgba(180,155,120,.22);
+    border-radius:23px;
+    padding:19px;
+    box-shadow:0 12px 35px rgba(65,47,27,.07);
+    transition:.2s;
+}
+
+.product:hover{
+    transform:translateY(-4px);
+    box-shadow:0 18px 40px rgba(65,47,27,.12);
+}
+
+.productIcon{
+    width:50px;
+    height:50px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    background:linear-gradient(145deg,#fff,#e9ddcd);
+    margin-bottom:15px;
+}
+
+.product h3{
+    font-size:16px;
+    margin-bottom:7px;
+}
+
+.product p{
+    color:#8a7e70;
+    font-size:12px;
+    line-height:1.8;
+    min-height:43px;
+}
+
+.productBottom{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    margin-top:17px;
+}
+
+.price{
+    color:#9b7549;
+    font-size:13px;
+    font-weight:800;
+}
+
+.openBtn{
+    padding:9px 13px;
+    border-radius:12px;
+    background:#292621;
+    color:white;
+    font-size:11px;
+}
+
+/* PAGE */
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+/* PRODUCT PAGE */
+
+.back{
+    margin:22px 0;
+    background:#fff;
+    border:1px solid #e3d7c8;
+    padding:9px 14px;
+    border-radius:12px;
+}
+
+.productPage{
+    background:rgba(255,255,255,.82);
+    border:1px solid #e2d7c8;
+    border-radius:28px;
+    padding:25px;
+    box-shadow:0 15px 40px rgba(50,35,20,.08);
+}
+
+.productLargeIcon{
+    width:75px;
+    height:75px;
+    border-radius:22px;
+    background:linear-gradient(145deg,#fff,#e8dccd);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:36px;
+    margin-bottom:18px;
+}
+
+.productPage h1{
+    font-size:27px;
+}
+
+.productDescription{
+    color:#756b60;
+    font-size:13px;
+    line-height:2;
+    margin-top:10px;
+}
+
+.infoBox{
+    margin-top:20px;
+    display:grid;
+    gap:10px;
+}
+
+.infoRow{
+    display:flex;
+    justify-content:space-between;
+    background:#f7f2eb;
+    padding:13px;
+    border-radius:14px;
+    font-size:12px;
+}
+
+.orderButton{
+    width:100%;
+    margin-top:20px;
+    padding:15px;
+    border-radius:16px;
+    background:linear-gradient(135deg,#2d2925,#55483b);
+    color:white;
+    font-weight:700;
+}
+
+/* ORDER */
+
+.form{
+    margin-top:20px;
+}
+
+.form label{
+    display:block;
+    font-size:12px;
+    margin-bottom:7px;
+    color:#756b60;
+}
+
+.form input,
+.form textarea{
+    width:100%;
+    border:1px solid #ded2c3;
+    background:#fff;
+    border-radius:14px;
+    padding:13px;
+    font-family:inherit;
+    outline:none;
+    margin-bottom:14px;
+}
+
+.form textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+/* SUCCESS */
+
+.success{
+    text-align:center;
+    padding:35px 15px;
+}
+
+.successIcon{
+    width:75px;
+    height:75px;
+    border-radius:50%;
+    background:#eee5d8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:35px;
+    margin:0 auto 18px;
+}
+
+.orderId{
+    margin-top:15px;
+    background:#f5efe7;
+    padding:14px;
+    border-radius:14px;
+    font-weight:800;
+}
+
+/* SUPPORT */
+
+.support{
+    margin-top:30px;
+    background:#292621;
+    color:white;
+    border-radius:25px;
+    padding:22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.support p{
+    font-size:12px;
+    color:#c8beb3;
+    margin-top:5px;
+}
+
+.supportBtn{
+    background:#fff;
+    color:#292621;
+    padding:11px 16px;
+    border-radius:13px;
+    white-space:nowrap;
+    font-size:12px;
+    font-weight:700;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    color:#968a7d;
+    font-size:11px;
+    padding:35px 0 25px;
+}
+
+/* ADMIN */
+
+.adminBox{
+    margin-top:20px;
+    padding:20px;
+    background:#fff;
+    border-radius:20px;
+}
+
+.adminBox input{
+    width:100%;
+    margin:7px 0 12px;
+    padding:12px;
+    border-radius:12px;
+    border:1px solid #ddd;
+}
+
+.adminSave{
+    background:#292621;
+    color:white;
+    padding:12px 17px;
+    border-radius:12px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+    .products{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .product{
+        padding:14px;
+    }
+
+    .product h3{
+        font-size:14px;
+    }
+
+    .hero{
+        padding:24px 19px;
+    }
+}
+
+@media(max-width:430px){
+    .products{
+        grid-template-columns:1fr;
+    }
+
+    .support{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .supportBtn{
+        text-align:center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+    <div class="topbar">
+        <div class="logo">
+            <div class="logoPearl"></div>
+            <div>
+                <div class="logoText">Pearl Shop</div>
+                <div class="logoSub">Telegram Virtual Services</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<!-- HOME -->
+
+<section id="homePage" class="page active">
+
+    <div class="hero">
+        <div class="heroContent">
+
+            <div class="badge">
+                ✦ خدمات مجازی تلگرام
+            </div>
+
+            <h1>
+                دنیای خدمات
+                <span>Pearl</span>
+            </h1>
+
+            <p>
+                پریمیوم، استارز، بوست، گیفت، اکانت و
+                سایر خدمات تلگرامی را از Pearl Shop دریافت کنید.
+            </p>
+
+        </div>
+    </div>
+
+
+    <div class="userCard">
+
+        <div class="userInfo">
+
+            <div class="avatar" id="avatar">
+                P
+            </div>
+
+            <div>
+                <div class="userName" id="userName">
+                    مهمان Pearl Shop
+                </div>
+
+                <div class="userId" id="userId">
+                    Telegram WebApp
+                </div>
+            </div>
+
+        </div>
+
+        <span>✦</span>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="sectionTitle">
+            <h2>خدمات Pearl</h2>
+            <span>انتخاب کنید</span>
+        </div>
+
+        <div class="products" id="products"></div>
+
+    </div>
+
+
+    <div class="support">
+
+        <div>
+            <strong>نیاز به راهنمایی داری؟</strong>
+            <p>پشتیبانی Pearl Shop در کنار شماست.</p>
+        </div>
+
+        <button
+            class="supportBtn"
+            onclick="openSupport()">
+            پشتیبانی
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- PRODUCT PAGE -->
+
+<section id="productPage" class="page">
+
+    <button class="back" onclick="showHome()">
+        ← بازگشت
+    </button>
+
+    <div class="productPage">
+
+        <div
+            class="productLargeIcon"
+            id="largeIcon">
+            ✦
+        </div>
+
+        <h1 id="productTitle">
+            محصول
+        </h1>
+
+        <div
+            class="productDescription"
+            id="productDescription">
+        </div>
+
+        <div class="infoBox">
+
+            <div class="infoRow">
+                <span>قیمت</span>
+                <strong id="productPrice">---</strong>
+            </div>
+
+            <div class="infoRow">
+                <span>وضعیت</span>
+                <strong>آماده سفارش</strong>
+            </div>
+
+        </div>
+
+        <button
+            class="orderButton"
+            onclick="openOrder()">
+            ثبت سفارش
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ORDER PAGE -->
+
+<section id="orderPage" class="page">
+
+    <button class="back" onclick="backToProduct()">
+        ← بازگشت
+    </button>
+
+    <div class="productPage">
+
+        <h1>ثبت سفارش</h1>
+
+        <div
+            class="productDescription"
+            id="orderProductText">
+        </div>
+
+        <div class="form">
+
+            <label>
+                توضیحات سفارش
+            </label>
+
+            <textarea
+                id="orderNote"
+                placeholder="اگر توضیح خاصی داری اینجا بنویس..."></textarea>
+
+            <button
+                class="orderButton"
+                onclick="submitOrder()">
+                تأیید و ثبت سفارش
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SUCCESS PAGE -->
+
+<section id="successPage" class="page">
+
+    <div class="productPage success">
+
+        <div class="successIcon">
+            ✓
+        </div>
+
+        <h1>
+            سفارش ثبت شد
+        </h1>
+
+        <p class="productDescription">
+            اطلاعات سفارش شما ثبت شد.
+            برای ادامه می‌توانید با پشتیبانی در ارتباط باشید.
+        </p>
+
+        <div class="orderId">
+            شماره سفارش:
+            <span id="generatedOrderId"></span>
+        </div>
+
+        <button
+            class="orderButton"
+            onclick="openSupport()">
+            ارتباط با پشتیبانی
+        </button>
+
+        <button
+            class="back"
+            style="margin-top:12px;width:100%;"
+            onclick="showHome()">
+            بازگشت به فروشگاه
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ADMIN PAGE -->
+
+<section id="adminPage" class="page">
+
+    <button class="back" onclick="showHome()">
+        ← بازگشت
+    </button>
+
+    <div class="productPage">
+
+        <h1>پنل مدیریت</h1>
+
+        <p class="productDescription">
+            تغییرات این قسمت فعلاً فقط روی همین مرورگر ذخیره می‌شوند.
+        </p>
+
+        <div
+            class="adminBox"
+            id="adminProducts">
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+    Pearl Shop © 2026
+</footer>
+
+</div>
+
+
+<script>
+
+/* =========================
+   TELEGRAM
+========================= */
+
+const tg = window.Telegram?.WebApp;
+
+if(tg){
+    tg.ready();
+    tg.expand();
+}
+
+
+/* =========================
+   SUPPORT
+========================= */
+
+function openSupport(){
+
+    window.open(
+        "https://t.me/Pvkiarash",
+        "_blank"
+    );
+
+}
+
+
+/* =========================
+   PRODUCTS
+========================= */
+
+const defaultProducts = [
+
+    {
+        id:"premium",
+        title:"Premium",
+        icon:"⭐",
+        description:"خرید Telegram Premium با شرایط مناسب.",
+        price:"تماس برای قیمت"
+    },
+
+    {
+        id:"stars",
+        title:"Stars",
+        icon:"⭐",
+        description:"خرید Telegram Stars برای اکانت شما.",
+        price:"تماس برای قیمت"
+    },
+
+    {
+        id:"boost",
+        title:"Boost",
+        icon:"🚀",
+        description:"خدمات Boost برای کانال و گروه تلگرام.",
+        price:"تماس برای قیمت"
+    },
+
+    {
+        id:"gift",
+        title:"Gift",
+        icon:"🎁",
+        description:"خرید و ارسال گیفت‌های تلگرامی.",
+        price:"تماس برای قیمت"
+    },
+
+    {
+        id:"account",
+        title:"Account",
+        icon:"👤",
+        description:"ارائه اکانت‌های مجازی تلگرام.",
+        price:"تماس برای قیمت"
+    },
+
+    {
+        id:"channel",
+        title:"Custom Channel",
+        icon:"📡",
+        description:"خدمات اختصاصی برای کانال‌های تلگرام.",
+        price:"تماس برای قیمت"
+    },
+
+    {
+        id:"ton",
+        title:"TON",
+        icon:"💎",
+        description:"خدمات مربوط به TON و پرداخت‌های مرتبط.",
+        price:"تماس برای قیمت"
+    },
+
+    {
+        id:"design",
+        title:"Channel Design",
+        icon:"🎨",
+        description:"طراحی اختصاصی برای کانال و پروفایل.",
+        price:"تماس برای قیمت"
+    }
+
+];
+
+
+let products =
+    JSON.parse(localStorage.getItem("pearlProducts"))
+    || defaultProducts;
+
+
+let selectedProduct = null;
+
+
+/* =========================
+   SHOW PRODUCTS
+========================= */
+
+function renderProducts(){
+
+    const box =
+        document.getElementById("products");
+
+    box.innerHTML = "";
+
+    products.forEach(product => {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "product";
+
+        card.innerHTML = `
+
+            <div class="productIcon">
+                ${product.icon}
+            </div>
+
+            <h3>
+                ${product.title}
+            </h3>
+
+            <p>
+                ${product.description}
+            </p>
+
+            <div class="productBottom">
+
+                <span class="price">
+                    ${product.price}
+                </span>
+
+                <button
+                    class="openBtn"
+                    onclick="openProduct('${product.id}')">
+                    مشاهده
+                </button>
+
+            </div>
+
+        `;
+
+        box.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================
+   PAGE SYSTEM
+========================= */
+
+function hidePages(){
+
+    document
+        .querySelectorAll(".page")
+        .forEach(page => {
+
+            page.classList.remove("active");
+
+        });
+
+}
+
+
+function showHome(){
+
+    hidePages();
+
+    document
+        .getElementById("homePage")
+        .classList.add("active");
+
+}
+
+
+function openProduct(id){
+
+    selectedProduct =
+        products.find(p => p.id === id);
+
+    if(!selectedProduct) return;
+
+    document
+        .getElementById("largeIcon")
+        .innerText =
+        selectedProduct.icon;
+
+    document
+        .getElementById("productTitle")
+        .innerText =
+        selectedProduct.title;
+
+    document
+        .getElementById("productDescription")
+        .innerText =
+        selectedProduct.description;
+
+    document
+        .getElementById("productPrice")
+        .innerText =
+        selectedProduct.price;
+
+    hidePages();
+
+    document
+        .getElementById("productPage")
+        .classList.add("active");
+
+}
+
+
+function backToProduct(){
+
+    if(selectedProduct){
+
+        openProduct(selectedProduct.id);
+
+    }else{
+
+        showHome();
+
+    }
+
+}
+
+
+/* =========================
+   ORDER
+========================= */
+
+function openOrder(){
+
+    if(!selectedProduct) return;
+
+    document
+        .getElementById("orderProductText")
+        .innerText =
+        "محصول انتخاب‌شده: "
+        + selectedProduct.title
+        + " — "
+        + selectedProduct.price;
+
+    document
+        .getElementById("orderNote")
+        .value = "";
+
+    hidePages();
+
+    document
+        .getElementById("orderPage")
+        .classList.add("active");
+
+}
+
+
+function generateOrderId(){
+
+    const random =
+        Math.floor(
+            100000 +
+            Math.random() * 900000
+        );
+
+    return "PEARL-" + random;
+
+}
+
+
+function submitOrder(){
+
+    if(!selectedProduct) return;
+
+    const note =
+        document
+        .getElementById("orderNote")
+        .value
+        .trim();
+
+    const orderId =
+        generateOrderId();
+
+    const user =
+        tg?.initDataUnsafe?.user;
+
+    const order = {
+
+        id:orderId,
+
+        product:selectedProduct.title,
+
+        price:selectedProduct.price,
+
+        note:note,
+
+        user:user
+            ? {
+                id:user.id,
+                username:user.username || "",
+                first_name:user.first_name || "",
+                last_name:user.last_name || ""
+            }
+            : null,
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
+
+    const oldOrders =
+        JSON.parse(
+            localStorage.getItem("pearlOrders")
+        ) || [];
+
+
+    oldOrders.push(order);
+
+
+    localStorage.setItem(
+        "pearlOrders",
+        JSON.stringify(oldOrders)
+    );
+
+
+    document
+        .getElementById("generatedOrderId")
+        .innerText =
+        orderId;
+
+
+    hidePages();
+
+    document
+        .getElementById("successPage")
+        .classList.add("active");
+
+
+    /*
+       در مرحله بعد اینجا می‌توانیم
+       ارسال مستقیم سفارش به ربات
+       Telegram را اضافه کنیم.
+    */
+
+}
+
+
+/* =========================
+   TELEGRAM USER
+========================= */
+
+function loadTelegramUser(){
+
+    const user =
+        tg?.initDataUnsafe?.user;
+
+    if(!user) return;
+
+    const name =
+        [
+            user.first_name,
+            user.last_name
+        ]
+        .filter(Boolean)
+        .join(" ");
+
+
+    document
+        .getElementById("userName")
+        .innerText =
+        name || "کاربر Telegram";
+
+
+    document
+        .getElementById("userId")
+        .innerText =
+        "ID: " + user.id;
+
+
+    document
+        .getElementById("avatar")
+        .innerText =
+        (user.first_name || "P")
+        .charAt(0)
+        .toUpperCase();
+
+}
+
+
+/* =========================
+   SIMPLE ADMIN
+========================= */
+
+function openAdmin(){
+
+    hidePages();
+
+    document
+        .getElementById("adminPage")
+        .classList.add("active");
+
+    renderAdmin();
+
+}
+
+
+function renderAdmin(){
+
+    const box =
+        document.getElementById("adminProducts");
+
+    box.innerHTML = "";
+
+    products.forEach((product,index) => {
+
+        const div =
+            document.createElement("div");
+
+        div.innerHTML = `
+
+            <strong>
+                ${product.title}
+            </strong>
+
+            <label>
+                قیمت
+            </label>
+
+            <input
+                id="price_${index}"
+                value="${product.price}"
+            >
+
+            <label>
+                توضیحات
+            </label>
+
+            <input
+                id="desc_${index}"
+                value="${product.description}"
+            >
+
+            <button
+                class="adminSave"
+                onclick="saveProduct(${index})">
+                ذخیره
+            </button>
+
+            <hr style="margin:20px 0;border:0;border-top:1px solid #eee">
+
+        `;
+
+        box.appendChild(div);
+
+    });
+
+}
+
+
+function saveProduct(index){
+
+    products[index].price =
+        document
+        .getElementById("price_"+index)
+        .value;
+
+
+    products[index].description =
+        document
+        .getElementById("desc_"+index)
+        .value;
+
+
+    localStorage.setItem(
+        "pearlProducts",
+        JSON.stringify(products)
+    );
+
+
+    renderProducts();
+
+    alert("تغییرات ذخیره شد.");
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+renderProducts();
+
+loadTelegramUser();
+
+
+/*
+برای باز کردن پنل مدیریت:
+
+در مرورگر آدرس سایت را با
+#admin
+باز کن.
+
+مثال:
+
+https://YOUR-SITE.github.io/#admin
+
+*/
+
+if(location.hash === "#admin"){
+
+    openAdmin();
+
+}
+
+</script>
+
+</body>
+</html>
+
+
+
